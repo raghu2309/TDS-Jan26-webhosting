@@ -11,3 +11,27 @@ jobs:
     steps:
       - name: 22f3001840@ds.study.iitm.ac.in
         run: echo "Hello, world!"
+
+
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/cache@v4
+        id: cache-step
+        with:
+          path: ~/.cache
+          key: cache-0ee664c
+
+      - name: prime-cache-0ee664c
+        run: echo ${{ steps.cache-step.outputs.cache-hit }}
