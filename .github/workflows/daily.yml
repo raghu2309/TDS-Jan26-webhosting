@@ -16,9 +16,14 @@ jobs:
 
       - name: Create commit by Raghu (22f3001840@ds.study.iitm.ac.in)
         run: |
-          echo "Daily update on $(date)" >> status.txt  # Adds today's date to a file
+          DATE=$(date -u +%Y-%m-%dT%H:%M:%SZ)  # UTC ISO timestamp, always unique
+          echo "# Daily Status Update" > status.md  # Markdown file, overwrites
+          echo "## Run at: $DATE" >> status.md
+          echo "- Automated by GitHub Actions" >> status.md
+          echo "- Workflow ID: ${{ github.run_id }}" >> status.md
           git config user.name "Raghu Srinivasan"
           git config user.email "22f3001840@ds.study.iitm.ac.in"
-          git add status.txt
-          git commit -m "Daily automated update: $(date)"
-          git push
+          git add status.md
+          git commit -m "Daily update: $DATE [skip ci]" || echo "No changes, but forcing"
+          git push origin HEAD:$GITHUB_REF
+
