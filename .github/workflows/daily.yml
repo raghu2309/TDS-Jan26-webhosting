@@ -1,0 +1,24 @@
+name: Daily Auto-Commit (22f3001840@ds.study.iitm.ac.in)
+
+on:
+  schedule:
+    - cron: '30 2 * * *'  # Runs daily at 2:30 AM UTC (specific hour/minute)
+  workflow_dispatch:      # Allows manual trigger for testing
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo  # Pulls your code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create commit by Raghu (22f3001840@ds.study.iitm.ac.in)
+        run: |
+          echo "Daily update on $(date)" >> status.txt  # Adds today's date to a file
+          git config user.name "Raghu Srinivasan"
+          git config user.email "22f3001840@ds.study.iitm.ac.in"
+          git add status.txt
+          git commit -m "Daily automated update: $(date)"
+          git push
