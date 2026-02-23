@@ -3,7 +3,7 @@ name: Daily Auto-Commit (22f3001840@ds.study.iitm.ac.in)
 on:
   schedule:
     - cron: '30 2 * * *'  # Runs daily at 2:30 AM UTC (specific hour/minute)
-  workflow_dispatch:      # Allows manual trigger for testing
+  workflow_dispatch:      # Allows manual trigger for testingg
 
 jobs:
   update:
